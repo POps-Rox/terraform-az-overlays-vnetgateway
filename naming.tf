@@ -4,7 +4,7 @@
 #------------------------------------------------------------
 # Azure NoOps Naming - This should be used on all resource naming
 #------------------------------------------------------------
-data "azurenoopsutils_resource_name" "virtual_network_gateway" {
+data "popsrox_resource_name" "virtual_network_gateway" {
   name          = var.workload_name
   resource_type = "azurerm_virtual_network_gateway"
   prefixes      = [var.org_name, var.use_location_short_name ? module.mod_azure_region_lookup.location_short : var.location]
@@ -14,7 +14,7 @@ data "azurenoopsutils_resource_name" "virtual_network_gateway" {
   separator     = "-"
 }
 
-data "azurenoopsutils_resource_name" "local_network_gateway" {
+data "popsrox_resource_name" "local_network_gateway" {
   name          = var.workload_name
   resource_type = "azurerm_local_network_gateway"
   prefixes      = [var.org_name, var.use_location_short_name ? module.mod_azure_region_lookup.location_short : var.location]
@@ -24,7 +24,7 @@ data "azurenoopsutils_resource_name" "local_network_gateway" {
   separator     = "-"
 }
 
-data "azurenoopsutils_resource_name" "express_route_circuit" {
+data "popsrox_resource_name" "express_route_circuit" {
   name          = var.workload_name
   resource_type = "azurerm_express_route_circuit"
   prefixes      = [var.org_name, var.use_location_short_name ? module.mod_azure_region_lookup.location_short : var.location]
