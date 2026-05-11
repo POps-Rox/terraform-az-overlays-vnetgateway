@@ -2,7 +2,7 @@
 # Licensed under the MIT License.
 
 module "mod_vng" {
-  #source  = "github.com/POps-Rox/tf-az-overlays-vnetgateway"
+  #source  = "github.com/POps-Rox/terraform-az-overlays-vnetgateway"
   #version = "x.x.x"
   source = "../../.."
 
