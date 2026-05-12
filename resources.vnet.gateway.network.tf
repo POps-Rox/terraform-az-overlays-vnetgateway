@@ -17,10 +17,13 @@ resource "azurerm_subnet" "vgw" {
 resource "azurerm_route_table" "vgw" {
   count = var.enable_route_table_creation ? 1 : 0
 
-  location                      = var.location
-  name                          = coalesce(var.route_table_name, "${local.virtual_network_gateway_name}-rt")
-  resource_group_name           = try(local.resource_group_name, var.existing_virtual_network_resource_group_name)
-  disable_bgp_route_propagation = !var.enable_route_table_bgp_route_propagation
+  location            = var.location
+  name                = coalesce(var.route_table_name, "${local.virtual_network_gateway_name}-rt")
+  resource_group_name = try(local.resource_group_name, var.existing_virtual_network_resource_group_name)
+  # azurerm 4.x renamed `disable_bgp_route_propagation` to `bgp_route_propagation_enabled`
+  # and inverted its semantics. The module variable is kept (preserves public API);
+  # we pass it through directly.
+  bgp_route_propagation_enabled = var.enable_route_table_bgp_route_propagation
   tags                          = local.default_tags
 }
 
