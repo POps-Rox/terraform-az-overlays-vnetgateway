@@ -13,7 +13,7 @@ resource "azurerm_virtual_network_gateway" "vgw" {
   type                       = var.type
   active_active              = var.enable_vpn_active_active
   edge_zone                  = var.edge_zone
-  enable_bgp                 = var.enable_vpn_bgp
+  bgp_enabled                = var.enable_vpn_bgp
   generation                 = var.vpn_generation
   private_ip_address_enabled = var.enable_vpn_private_ip_address
   tags                       = local.default_tags
@@ -97,7 +97,7 @@ resource "azurerm_virtual_network_gateway_connection" "vgw" {
   connection_protocol                = try(each.value.connection_protocol, null)
   dpd_timeout_seconds                = try(each.value.dpd_timeout_seconds, null)
   egress_nat_rule_ids                = try(each.value.egress_nat_rule_ids, null)
-  enable_bgp                         = try(each.value.enable_bgp, null)
+  bgp_enabled                        = try(each.value.enable_bgp, null)
   express_route_circuit_id           = try(each.value.express_route_circuit_id, null)
   express_route_gateway_bypass       = try(each.value.express_route_gateway_bypass, null)
   ingress_nat_rule_ids               = try(each.value.ingress_nat_rule_ids, null)
@@ -106,7 +106,7 @@ resource "azurerm_virtual_network_gateway_connection" "vgw" {
   peer_virtual_network_gateway_id    = try(each.value.peer_virtual_network_gateway_id, null)
   routing_weight                     = each.value.routing_weight
   shared_key                         = try(each.value.shared_key, null)
-  tags                               = local.default_tags
+  tags                               = merge(local.default_tags, try(each.value.tags, {}))
   use_policy_based_traffic_selectors = try(each.value.use_policy_based_traffic_selectors, null)
 
   dynamic "custom_bgp_addresses" {

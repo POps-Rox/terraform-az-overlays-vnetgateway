@@ -5,9 +5,9 @@
 # Local Tags configuration - Default (required). 
 #------------------------------------------------------------
 locals {
-  default_tags = var.default_tags_enabled ? {
+  default_tags = merge(var.default_tags_enabled ? {
     deployedBy = format("AzureNoOpsTF [%s]", terraform.workspace)
     env        = var.environment
     workload   = var.workload_name
-  } : {}
+  } : {}, var.add_tags)
 }
