@@ -14,5 +14,14 @@ module "mod_example" {
   org_name              = var.org_name
   workload_name         = var.workload_name
 
+  # VNet Gateway details
+  sku                           = "VpnGw1"
+  type                          = "Vpn"
+  gateway_subnet_address_prefix = "10.0.2.0/24"
+
+  # Virtual Network Configuration
+  existing_virtual_network_resource_group_name = azurerm_resource_group.example-network-rg.name
+  existing_virtual_network_name                = azurerm_virtual_network.example-vnet.name
+
   #echo_text = "Hello, world!"
 }

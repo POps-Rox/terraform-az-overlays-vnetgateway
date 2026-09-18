@@ -70,7 +70,7 @@ locals {
       v.connection,
       {
         type                     = "ExpressRoute"
-        express_route_circuit_id = local.express_route_circuit_name
+        express_route_circuit_id = v.id
       }
     )
     if v.connection != null

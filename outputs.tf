@@ -56,16 +56,16 @@ output "virtual_network_gateway_connections" {
   description = "A curated output of the Virtual Network Gateway Connections created by this module."
   value = {
     erc = {
-      for k, v in azurerm_virtual_network_gateway_connection.vgw : trimprefix(k, "erc-") => {
+      for k, v in azurerm_virtual_network_gateway_connection.vgw : trimsuffix(k, "-erc") => {
         id   = v.id
         name = v.name
-      } if substr(k, 0, 4) == "erc-"
+      } if endswith(k, "-erc")
     }
     lgw = {
-      for k, v in azurerm_virtual_network_gateway_connection.vgw : trimprefix(k, "lgw-") => {
+      for k, v in azurerm_virtual_network_gateway_connection.vgw : k => {
         id   = v.id
         name = v.name
-      } if substr(k, 0, 4) == "lgw-"
+      } if !endswith(k, "-erc")
     }
   }
 }
